@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <input v-model.lazy="message"><button v-on:click="calc" v-on:keyup.enter="calc">Посчитать</button>
-    <p>Введенное сообщение: {{ message }}</p>
+    <input v-model.lazy="addr"><button v-on:click="request" v-on:keyup.enter="request">Получить список файлов</button>
+    <p>Введенный адрес: {{ addr }}</p>
 
 <!--    {{ info }}-->
 
@@ -14,7 +14,7 @@
       {{ wait }}
     </div>
     <div v-else-if="info === 'error'">
-      Не удалось получить ссылки для этого адреса. Попробуйте другой.
+      Не удалось получить список файлов для этого адреса. Попробуйте другой.
     </div>
     <div id="example-1" v-else-if="(info !== 'invalid')" >
 
@@ -33,24 +33,24 @@
 <script>
 import axios from 'axios'
 // let url = 'https://api.coindesk.com/v1/bpi/currentprice.json'
-let url = 'http://localhost:3000?url='
+let url = 'http://185.68.21.38:3000?url='
 
 export default {
   name: 'App',
   data () {
     return {
       info: '',
-      message: 'http://github.com',
+      addr: 'http://github.com',
       wait: ''
     }
   },
   methods: {
-    calc: function () {
+    request: function () {
       console.log(this.message)
       this.wait = 'Please wait...'
       this.info = ''
       axios
-        .get(url + this.message)
+        .get(url + this.addr)
         .then(response => (this.info = response.data))
         .catch(error => console.log(error))
 

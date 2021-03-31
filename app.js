@@ -1,15 +1,13 @@
 const express = require("express");
-const array1 = require("./src/parser2.js");
-//const array1 = require("./index.js");
-//const double = require("./double.js");
-//const validUrl = require('url');
+const getLinks = require("./src/parser2.js");
 const cors = require('cors');
 
-
 const app = express();
+
 app.use(cors());
-const aaa = async (url) => {
-    const result = await array1(url);
+
+const links = async (url) => {
+    const result = await getLinks(url);
     console.log(111);
     console.log(result)
     return result;
@@ -46,7 +44,7 @@ app.get("/",  async function(req, res){
 
     try {
         const myURL = new URL(url);
-        const bbb = await aaa(myURL);
+        const bbb = await links(myURL);
         if (bbb.length) { res.send(bbb);}
         else {
             res.send('error')   //bbb);
